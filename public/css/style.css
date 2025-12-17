@@ -63,12 +63,43 @@ body {
 .listing-card {
     border: none !important;
     margin-bottom: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.listing-card:hover {
+    transform: scale(1.02); /* Slight zoom on hover */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Soft shadow lift */
 }
 
 .card-img-top {
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
+}
+
+/* The Heart Icon Overlay */
+.card-img-overlay {
+    opacity: 1 !important; /* Hidden by default */
+    background-color: transparent !important; /* Forces the box to be invisible */
+    padding: 0; /* Removes extra padding that might block the image */
+    transition: opacity 0.2s;
+}
+
+.heart-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5); /* Shadow so it shows on white images */
+}
+
+.heart-icon:hover {
+    color: #fe424d; /* Airbnb red on hover */
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .card-body {
@@ -116,4 +147,116 @@ body {
 .show-card {
     padding-left: 0;
     padding-right: 0;
+}
+
+#map {
+    height: 400px;
+    width: 100vh;
+    border-radius: 10px;
+}
+
+/* Add this to your style.css */
+.preview-img {
+    height: 200px;       /* Sets a fixed height */
+    width: 300px;    /* Limits the width */
+    object-fit: cover; /* 👈 CHANGE THIS! shows the whole image inside the box */
+    background-color: #f0f0f0; 
+    border-radius: 0.5rem; /* Optional: Adds rounded corners for a better look */
+    margin-bottom: 1rem; /* Adds some space below the image */
+}
+
+#filters {
+    display: flex !important;
+    flex-wrap: nowrap !important;    /* 👈 This forces them into one single line */
+    overflow-x: auto !important;     /* 👈 This enables the horizontal scroll */
+    width: 100% !important;
+    align-items: center;
+    padding-bottom: 1rem;            /* Space for scrolling */
+    
+    /* Hides the scrollbar for a clean look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+#filters::-webkit-scrollbar { 
+    display: none;             /* Chrome, Safari, Opera */
+}
+
+#filters {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+/* 1. Base Style (For Laptops/PC) - Fixes the text wrapping */
+.tax-toggle {
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3.25rem;
+    padding: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;  /* 👈 Prevents text from breaking into two lines */
+}
+
+/* 2. Mobile Rule - Hides the button completely on small screens */
+@media (max-width: 768px) {
+    .tax-toggle {
+        display: none;    /* 👈 This removes it from the phone view */
+    }
+}
+
+/* MOBILE NAVBAR STYLING */
+@media (max-width: 768px) {
+    /* 1. Make the Collapsible Menu a Solid "Drawer" */
+    .navbar-collapse {
+        background-color: #ffffff;  /* Solid white background */
+        position: absolute;         /* Floats it on top of the page */
+        top: 100%;                  /* Positions it right below the logo line */
+        left: 0;
+        right: 0;                   /* Stretches it full width */
+        z-index: 1000;              /* Ensures it sits ON TOP of everything (like filters) */
+        padding: 1.5rem;            /* Adds nice internal spacing */
+        box-shadow: 0 20px 30px rgba(0,0,0,0.1); /* Adds a drop shadow for depth */
+        border-top: 1px solid #eee; /* Subtle divider line */
+    }
+
+    /* 2. Fix the Search Bar Layout */
+    .navbar-collapse form {
+        display: flex;
+        flex-direction: column; /* Stacks input and button vertically */
+        gap: 10px;              /* Space between input and button */
+        margin-bottom: 1.5rem;  /* Pushes the links down */
+    }
+
+    .navbar-collapse input.search-input {
+        width: 100% !important; /* Full width input */
+        border-radius: 25px;    /* Rounded corners */
+        padding: 10px 20px;
+    }
+
+    .navbar-collapse button.search-btn {
+        width: 100%;            /* Full width button */
+        border-radius: 25px;
+        margin: 0;              /* Reset margins */
+    }
+
+    /* 3. Style the Links (Login/Signup) */
+    .navbar-nav {
+        text-align: left; 
+        padding-left: 20px;    /* Centers the text */
+        gap: 10px;              /* Adds space between links */
+    }
+
+    .nav-link {
+        color: #222 !important; /* Dark text color */
+        font-size: 1.1rem;      /* Slightly larger font for touch */
+        padding: 10px 0;        /* Larger touch target */
+        border-bottom: 1px solid #f0f0f0; /* Light line between links */
+    }
+    
+    /* Highlight the "Sign Up" or primary action if you want */
+    .nav-link:last-child {
+        border-bottom: none;
+    }
 }

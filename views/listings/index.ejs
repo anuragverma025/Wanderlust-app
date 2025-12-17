@@ -1,27 +1,191 @@
 <% layout("/layouts/boilerplate") %>
 
-<h3>All Listings</h3>
+<!-- <h3>All Listings</h3> -->
 <!-- <form method="get" action="/listings/new">
     <button>Create New Listing</button>
 </form> -->
-<div class="row row-cols-lg-3 row-cols-mid-2 row-cols-sm-1">
+
+<style>
+    #filters{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .filter {
+        text-align: center;
+        margin-right: 2rem;
+        margin-top: 1rem;
+        opacity: 0.7;
+    }
+
+    .filter:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .filter p {
+        font-size: 0.8rem;
+    }
+
+    .tax-info {
+        display: none;
+    }
+
+    .tax-toggle {
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 3.0rem; 
+        padding: 1rem;
+        margin-left: 3rem;
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+
+<style>
+    /* Add this internal style or put it in your style.css */
+    .filter-btn {
+        text-decoration: none;
+        color: inherit;
+        opacity: 0.7;
+    }
+    .filter-btn:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+</style>
+
+<div id="filters">
+    <a href="/listings?category=Trending" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Rooms" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Iconic Cities" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic cities</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Mountains" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Castles" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>Castles</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Amazing Pools" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing Pools</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Camping" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-tent"></i></div>
+            <p>Camping</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Farms" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-cow"></i></div>
+            <p>Farms</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Arctic" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-snowflake"></i></div>
+            <p>Arctic</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Domes" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-landmark-dome"></i></div>
+            <p>Domes</p>
+        </div>
+    </a>
+
+    <a href="/listings?category=Boats" class="filter-btn">
+        <div class="filter">
+            <div><i class="fa-solid fa-ship"></i></div>
+            <p>Boats</p>
+        </div>
+    </a>
+
+    <div class="tax-toggle">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+        </div>
+    </div>
+</div>
+
+<% if(allListings.length === 0) { %>
+    <div class="alert alert-danger col-6 offset-3 mt-5" role="alert">
+        <h4 class="alert-heading">No Listings Found!</h4>
+        <p>We couldn't find any matches for your search. Try checking the spelling or searching for a different location.</p>
+        <hr>
+        <p class="mb-0"><a href="/listings" class="alert-link">Back to All Listings</a></p>
+    </div>
+<% } %>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
             <div class="card col listing-card">
-                <img src="<%= listing.image.url %>" 
-                    class="card-img-top" 
-                    alt="listing_image" 
-                    style="height: 20rem;">
-                <div class="card-img-overlay"></div>
+                
+                <div style="position: relative;">
+                    <img src="<%= listing.image.url %>" 
+                        class="card-img-top" 
+                        alt="listing_image" 
+                        style="height: 20rem;">
+                    
+                    <div class="card-img-overlay">
+                         <i class="fa-regular fa-heart heart-icon"></i>
+                    </div>
+                </div>
+
                 <div class="card-body">
                     <p class="card-text">
-                        <b><%= listing.title %></b>
-                        <br>
-                        <%= listing.price.toLocaleString("en-IN",{
-                            style: 'currency', 
-                            currency: 'INR',
-                            maximumFractionDigits: 0
-                        }) %> /night
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold"><%= listing.location %>, <%= listing.country %></span>
+                            <span><i class="fa-solid fa-star text-warning"></i> 4.5</span>
+                        </div>
+                        
+                        <span class="text-muted" style="font-size: 0.9rem;">
+                            <%= listing.category || "Trending" %> • 200 km away
+                        </span>
+                        
+                        <div class="mt-2">
+                            <span class="fw-bold">
+                                &#8377; <%= listing.price.toLocaleString("en-IN") %>
+                            </span> 
+                            <span class="text-muted">/ night</span>
+                            <i class="tax-info text-muted" style="font-size: 0.8rem;"> &nbsp; +18% GST</i>
+                        </div>
                     </p>
                 </div>
             </div>
@@ -29,4 +193,17 @@
     <% } %>
 </div>
 
-
+<script>
+    let taxSwitch = document.getElementById("switchCheckDefault");
+    taxSwitch.addEventListener("click", () => {
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for(info of taxInfo){
+            if (info.style.display != "inline"){
+                info.style.display = "inline";
+            }else {
+                info.style.display = "none";
+            }
+            
+        }
+    });
+</script>
