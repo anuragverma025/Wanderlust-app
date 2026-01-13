@@ -135,7 +135,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 👤 Author
 **[Anurag Verma]**
 * **GitHub:** [github.com/anuragverma025](https://github.com/anuragverma025)
-* **LinkedIn:** [linkedin.com/in/AnuragVerma](https://linkedin.com/in/AnuragVerma)
+* **LinkedIn:** [linkedin.com/in/anurag-verma025](https://linkedin.com/in/anurag-verma025)
 * **Email:** anuragverma9613@gmail.com
 
 ---
